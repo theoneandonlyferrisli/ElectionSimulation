@@ -14,7 +14,7 @@ class State:
         self.idealogy = random.randrange(0, 2)
         
         # variables
-        self.open = True
+        self.open = True # False when a state is won or lost by Steve.
         self.steve_support = 0
         self.opponent_support = 0
         if self.gdp > 0:
@@ -23,16 +23,63 @@ class State:
             self.opponent_support = self.gdp * -1
         self.multiplier = 1
         self.groud_operation_index = 0 # max is 5
-        self.community_outreach_event = 0 # max is 2
-        self.local_fundraising = 0 # max is 1
+        self.num_rally = 0 # max is 10
+        self.num_community_outreach = 0 # max is 2
+        self.num_fundraising = 0 # max is 1
 
 
     def update_support(self):
         'A function invoked after a move is made.'
         has_incident = random.randrange(0, 5)
+
+        # Add support resulted from incident to steve's support.
         if has_incident == 0:
             self.steve_support += random.randrange(-5, 6)
-        print('Update_support worked!')
+
+        # Add support from trend to steve's support.
+        if trend >= 0:
+            self.steve_support += trend
+        else:
+            self.opponent_support += abs(trend)
+               
+
+    def hold_rally():
+        'Change the status of state after a rally.'
+        SUPPORT_GAINED = 1
+        self.steve_support += SUPPORT_GAINED * abs(self.multiplier)
+        self.rally += 1
+
+    def hold_community_outreach():
+        'Change the status of state after a community outreach.'
+        self.community_outreach += 1
+        
+
+
+    def hold_fundraising():
+        'Change the status of the state after a fundraising event.'
+        self.num_fundraising += 1
+
+
+    def can_hold_rally():
+        'Checks if a rally is still doable.'
+        return self.num_rally == 10
+
+    def can_community_outreach():
+        'Checks if a community outreach is still doable.'
+        return self.num_community_outreach == 2
+
+    def can_fundraise():
+        'Checks if a fundraising event is still doable.'
+        return self.num_fundraising == 1
+
+    def can_ground():
+        'Checks if it is still possible to consolidate ground operation.'
+        return self.ground_operation_index == 5
+        
+    
+            
+        
+        
             
 
 
