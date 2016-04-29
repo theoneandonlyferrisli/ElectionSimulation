@@ -43,9 +43,9 @@ class State:
 
         # Add support from trend to steve's support.
         if self.trend >= 0:
-            self.steve_support += trend
+            self.steve_support += self.trend
         else:
-            self.opponent_support += abs(trend)
+            self.opponent_support += abs(self.trend)
                
 
     def hold_rally():
