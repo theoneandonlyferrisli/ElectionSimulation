@@ -22,6 +22,11 @@ class State:
         else:
             self.opponent_support = self.gdp * -1
         self.multiplier = 1
+        self.trend = 0
+        if ideology == 0:
+            self.trend = 1
+        else:
+            self.trend = -1
         self.groud_operation_index = 0 # max is 5
         self.num_rally = 0 # max is 10
         self.num_community_outreach = 0 # max is 2
@@ -52,13 +57,13 @@ class State:
     def hold_community_outreach():
         'Change the status of state after a community outreach.'
         self.community_outreach += 1
-        
-
+        self.steve_support += 2
+        if self.num_community_outreach >= 2 and self.trend < 0:
+            self.trend = abs(trend)
 
     def hold_fundraising():
         'Change the status of the state after a fundraising event.'
         self.num_fundraising += 1
-
 
     def can_hold_rally():
         'Checks if a rally is still doable.'
