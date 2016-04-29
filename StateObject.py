@@ -59,7 +59,7 @@ class State:
         self.community_outreach += 1
         self.steve_support += 2
         if self.num_community_outreach >= 2 and self.trend < 0:
-            self.trend = abs(trend)
+            self.trend = abs(self.trend)
 
     def hold_fundraising():
         'Change the status of the state after a fundraising event.'
