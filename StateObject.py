@@ -23,7 +23,7 @@ class State:
             self.opponent_support = self.gdp * -1
         self.multiplier = 1
         self.trend = 0
-        if ideology == 0:
+        if self.ideology == 0:
             self.trend = 1
         else:
             self.trend = -1
@@ -31,9 +31,6 @@ class State:
         self.num_rally = 0 # max is 10
         self.num_community_outreach = 0 # max is 2
         self.num_fundraising = 0 # max is 1
-
-    
-    'Available actions.'
 
     def update_support(self):
         'A function invoked after a move is made.'
@@ -47,9 +44,10 @@ class State:
         if self.trend >= 0:
             self.steve_support += self.trend
         else:
-            self.opponent_support += abs(self.trend)
-               
+            self.opponent_support += abs(self.trend)              
 
+    'Available actions and checks.'
+    
     def hold_rally(self):
         'Change the status of state after a rally.'
         self.steve_support += 1 * abs(self.multiplier)
