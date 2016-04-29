@@ -11,7 +11,7 @@ class State:
         self.gdp = random.randrange(-15, 16)
 
         # Ideology 0 = liberal and 1 = conservative
-        self.idealogy = random.randrange(0, 2)
+        self.ideology = random.randrange(0, 2)
         
         # variables
         self.open = True # False when a state is won or lost by Steve.
@@ -64,6 +64,8 @@ class State:
     def hold_fundraising(self):
         'Change the status of the state after a fundraising event.'
         self.num_fundraising += 1
+
+    def bribe_voters(self)
 
     def can_hold_rally(self):
         'Checks if a rally is still doable.'
