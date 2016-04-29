@@ -42,7 +42,7 @@ class State:
             self.steve_support += random.randrange(-5, 6)
 
         # Add support from trend to steve's support.
-        if trend >= 0:
+        if self.trend >= 0:
             self.steve_support += trend
         else:
             self.opponent_support += abs(trend)
