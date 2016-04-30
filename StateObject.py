@@ -44,18 +44,25 @@ class State:
         if self.trend >= 0:
             self.steve_support += self.trend
         else:
-            self.opponent_support += abs(self.trend)              
+            self.opponent_support += abs(self.trend)
+
+        # Randomly add support to Steve's opponent
+        self.opponent_support += random.randrange(-5, 6)
+
+        # Checks if the state is won or lost by Steve.
+        if self.steve_support > 50 or self.opponent_support > 50:
+            self.open = False
 
     'Available actions and checks.'
-    
+
     def hold_rally(self):
         'Change the status of state after a rally.'
         self.steve_support += 1 * abs(self.multiplier)
-        self.rally += 1
+        self.num_rally += 1
 
     def hold_community_outreach(self):
         'Change the status of state after a community outreach.'
-        self.community_outreach += 1
+        self.num_community_outreach += 1
         self.steve_support += 2 * self.multiplier
         if self.num_community_outreach >= 2 and self.trend < 0:
             self.trend = abs(self.trend)
@@ -65,7 +72,17 @@ class State:
         'Change the status of the state after a fundraising event.'
         self.num_fundraising += 1
 
-    def bribe_voters(self)
+    def ground_operation(self):
+        'Establishes or boosts ground operation, which is reflected by g_o_index.'
+        self.trend += 1
+
+    def bribe_voters(self):
+        'Bribes the voters for more support.'
+        discovered = random.randrange(1, 100)
+        if discovered % 17 == 0:
+            self.open = False
+        else:
+            self.steve_support += 10
 
     def can_hold_rally(self):
         'Checks if a rally is still doable.'
@@ -82,6 +99,10 @@ class State:
     def can_ground(self):
         'Checks if it is still possible to consolidate ground operation.'
         return self.ground_operation_index < 5
+
+    def evaluate(self):
+        'Evaluates how favorable Steve is to win the state.'
+        return 100 - self.steve_support - self.trend + self.opponent_support / 2
         
     
             
