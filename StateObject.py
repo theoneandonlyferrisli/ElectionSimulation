@@ -49,6 +49,14 @@ class State:
         # Randomly add support to Steve's opponent
         self.opponent_support += random.randrange(-5, 6)
 
+        # Checks for negative values in supports.
+        if self.steve_support < 0:
+            self.opponent_support += abs(self.steve_support)
+            self.steve_support = 0
+        if self.opponent_support < 0:
+            self.steve_support += abs(self.opponent_support)
+            self.opponent_support = 0
+            
         # Checks if the state is won or lost by Steve.
         if self.steve_support > 50 or self.opponent_support > 50:
             self.open = False
